@@ -1,6 +1,6 @@
 public class BalancedBinaryTree {
     public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree();
+        AVLTree tree = new AVLTree();
         int[] values = { 5, 7, 3, 4, 1, 0 };
         tree.print();
         tree.push(values);

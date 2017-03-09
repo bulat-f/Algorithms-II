@@ -1,16 +1,25 @@
 public class BinaryTree {
-    private BinaryTreeNode root;
+    protected BinaryTreeNode root;
 
     public BinaryTree() {
         root = null;
     }
 
-    public void add(int value) {
-        if (root == null) {
-            root = new BinaryTreeNode(value);
+    public void insert(int value) {
+        root = insert(root, value);
+    }
+
+    protected BinaryTreeNode insert(BinaryTreeNode node, int value) {
+        if (node == null) {
+            node = new BinaryTreeNode(value);
         } else {
-            root.add(value);
+            if (value > node.key)
+                node.right = insert(node.right, value);
+            else
+                node.left = insert(node.left, value);
         }
+
+        return node;
     }
 
     public byte height(BinaryTreeNode node) {
@@ -40,48 +49,9 @@ public class BinaryTree {
         fixHeightR(root);
     }
 
-    public BinaryTreeNode rotateRight(BinaryTreeNode node) {
-        BinaryTreeNode tmp = node.left;
-        node.left = tmp.right;
-        tmp.right = node;
-        fixHeight(node);
-        fixHeight(tmp);
-        return tmp;
-    }
-
-    public BinaryTreeNode rotateLeft(BinaryTreeNode node) {
-        BinaryTreeNode tmp = node.right;
-        node.right = tmp.left;
-        tmp.left = node;
-        fixHeight(node);
-        fixHeight(tmp);
-        return tmp;
-    }
-
-    public BinaryTreeNode balance(BinaryTreeNode node) {
-        fixHeight(node);
-        if (bfactor(node) == 2) {
-            if (bfactor(node.right) < 0)
-                node.right = rotateRight(node.right);
-            return rotateLeft(node);
-        }
-
-        if (bfactor(node) == -2) {
-            if (bfactor(node.left) > 0)
-                node.left = rotateLeft(node.left);
-            return rotateRight(node);
-        }
-
-        return node;
-    }
-
-    public void balance() {
-        root = balance(root);
-    }
-
     public void push(int values[]) {
         for (int i = 0; i < values.length; i++) {
-            add(values[i]);
+            insert(values[i]);
         }
     }
 
@@ -89,7 +59,21 @@ public class BinaryTree {
         if (root == null) {
             System.out.println("Tree is empty");
         } else {
-            root.print();
+            print(root, 0);
+        }
+    }
+
+    protected void print(BinaryTreeNode node, int level) {
+        if (node != null) {
+            print(node.right, level + 1);
+
+            for (int i = 0; i < level; i++) {
+                System.out.print("   ");
+            }
+            System.out.print("+->");
+            System.out.println(node);
+
+            print(node.left, level + 1);
         }
     }
 }
