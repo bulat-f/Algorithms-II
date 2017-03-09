@@ -1,10 +1,12 @@
 class BinaryTreeNode {
-    private int key;
-    private BinaryTreeNode left;
-    private BinaryTreeNode right;
+    public int key;
+    public byte height;
+    public BinaryTreeNode left;
+    public BinaryTreeNode right;
 
     public BinaryTreeNode(int value) {
         key = value;
+        height = 1;
         left = null;
         right = null;
     }
@@ -32,13 +34,18 @@ class BinaryTreeNode {
         }
 
         for (int i = 0; i < level; i++) {
-            System.out.print("  ");
+            System.out.print("   ");
         }
-        System.out.println(key);
+        System.out.print("+->");
+        System.out.println(this);
 
         if (left != null) {
             left.print(level + 1);
         }
+    }
+
+    public String toString() {
+        return Integer.toString(key) + " height: " + Byte.toString(height);
     }
 
     private BinaryTreeNode addToNode(BinaryTreeNode node, int value) {
