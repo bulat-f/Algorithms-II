@@ -1,16 +1,8 @@
 public class BalancedBinaryTree {
     public static void main(String[] args) {
         AVLTree tree = new AVLTree();
-        int[] values = { 5, 7, 3, 4, 1, 0 };
-        tree.print();
+        int[] values = { 7, 6, 5, 4, 3, 2, 1, 0 };
         tree.push(values);
-        tree.print();
-        tree.fixHeight();
-        System.out.println("===========");
-        tree.print();
-
-        tree.balance();
-        System.out.println("===========");
         tree.print();
     }
 }
