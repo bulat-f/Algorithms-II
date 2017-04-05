@@ -39,22 +39,18 @@ public class AVLTree extends BinaryTree {
         return node;
     }
 
-    public void balance() {
-        root = balance(root);
-    }
+    // protected BinaryTreeNode insert(BinaryTreeNode node, int value) {
+    //     if (node == null) {
+    //         node = new BinaryTreeNode(value);
+    //         return node;
+    //     } else {
+    //         if (value > node.key)
+    //             node.right = insert(node.right, value);
+    //         else
+    //             node.left = insert(node.left, value);
+    //     }
 
-    protected BinaryTreeNode insert(BinaryTreeNode node, int value) {
-        if (node == null) {
-            node = new BinaryTreeNode(value);
-            return node;
-        } else {
-            if (value > node.key)
-                node.right = insert(node.right, value);
-            else
-                node.left = insert(node.left, value);
-        }
-
-        node = balance(node);
-        return node;
-    }
+    //     node = balance(node);
+    //     return node;
+    // }
 }

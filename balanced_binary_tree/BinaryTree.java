@@ -3,6 +3,10 @@ public class BinaryTree {
 
     public BinaryTree() {
         root = null;
+        Balancing thread1 = new Balancing();
+        Balancing thread2 = new Balancing();
+        thread1.start();
+        thread2.start();
     }
 
     public void insert(int value) {
@@ -26,8 +30,8 @@ public class BinaryTree {
         return node == null ? 0 : node.height;
     }
 
-    public int bfactor(BinaryTreeNode node) {
-        return height(node.right) - height(node.left);
+    public byte bfactor(BinaryTreeNode node) {
+        return (byte) (height(node.right) - height(node.left));
     }
 
     public void fixHeight(BinaryTreeNode node) {
