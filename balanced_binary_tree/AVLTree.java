@@ -1,7 +1,9 @@
 public class AVLTree extends BinaryTree {
+    private AVLBalancer balancer;
 
     public AVLTree() {
         root = null;
+        balancer = new AVLBalancer();
     }
 
     public BinaryTreeNode rotateRight(BinaryTreeNode node) {
@@ -22,21 +24,10 @@ public class AVLTree extends BinaryTree {
         return tmp;
     }
 
-    public BinaryTreeNode balance(BinaryTreeNode node) {
-        fixHeight(node);
-        if (bfactor(node) == 2) {
-            if (bfactor(node.right) < 0)
-                node.right = rotateRight(node.right);
-            return rotateLeft(node);
-        }
+    public void balance() {
+        fixHeight(root);
 
-        if (bfactor(node) == -2) {
-            if (bfactor(node.left) > 0)
-                node.left = rotateLeft(node.left);
-            return rotateRight(node);
-        }
-
-        return node;
+        root = balancer.balance(root);
     }
 
     // protected BinaryTreeNode insert(BinaryTreeNode node, int value) {

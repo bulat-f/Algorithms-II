@@ -3,10 +3,6 @@ public class BinaryTree {
 
     public BinaryTree() {
         root = null;
-        Balancing thread1 = new Balancing();
-        Balancing thread2 = new Balancing();
-        thread1.start();
-        thread2.start();
     }
 
     public void insert(int value) {
