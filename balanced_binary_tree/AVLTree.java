@@ -25,8 +25,6 @@ public class AVLTree extends BinaryTree {
     }
 
     public void balance() {
-        fixHeight(root);
-
         root = balancer.balance(root);
     }
 

@@ -7,6 +7,7 @@ public class BinaryTree {
 
     public void insert(int value) {
         root = insert(root, value);
+        fixHeight();
     }
 
     protected BinaryTreeNode insert(BinaryTreeNode node, int value) {
