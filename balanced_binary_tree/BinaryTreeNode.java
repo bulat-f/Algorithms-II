@@ -16,6 +16,6 @@ class BinaryTreeNode {
     }
 
     public String toString() {
-        return Integer.toString(key) + " " + height;
+        return Integer.toString(key);
     }
 }

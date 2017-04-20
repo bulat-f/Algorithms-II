@@ -26,6 +26,7 @@ public class AVLTree extends BinaryTree {
 
     public void balance() {
         root = balancer.balance(root);
+        root = balancer.balance(root);
     }
 
     // protected BinaryTreeNode insert(BinaryTreeNode node, int value) {
