@@ -11,12 +11,14 @@ This course covers the essential information that every serious programmer needs
 
 ## Concurrent Matrix Multiplication
 
-## Substring
+## Rabin–Karp algorithm
 
-With simple hash function
+The **Rabin–Karp algorithm** or **Karp–Rabin algorithm** is a string searching algorithm created by Richard M. Karp and Michael O. Rabin (1987) that uses hashing to find any one of a set of pattern strings in a text. For text of length n and p patterns of combined length m, its average and best case running time is O(n+m) in space O(p), but its worst-case time is O(nm).
 
-## Substing Knut-*-*
+## Knuth–Morris–Pratt algorithm
 
-## Ordinary Least Squares
+The **Knuth–Morris–Pratt** string searching algorithm (or KMP algorithm) searches for occurrences of a "word" W within a main "text string" S by employing the observation that when a mismatch occurs, the word itself embodies sufficient information to determine where the next match could begin, thus bypassing re-examination of previously matched characters
+
+## Ordinary least squares
 
 ## Group method of data handling
