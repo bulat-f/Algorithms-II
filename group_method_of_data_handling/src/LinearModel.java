@@ -31,6 +31,25 @@ public class LinearModel {
         return b.getColumnPackedCopy();
     }
 
+    public Matrix Y_approx() {
+        return X.times(b);
+    }
+
+    public double R() {
+        return 1 - S1() / S2();
+    }
+
+    private double S1() {
+        return Y.minus(Y_approx()).norm2();
+    }
+
+    private double S2() {
+        Matrix Y_ = Y_approx();
+        double mean = Y_.norm1();
+        Matrix Y_mean = new Matrix(Y_.getRowDimension(), Y_.getColumnDimension(), mean);
+        return Y.minus(Y_mean).norm2();
+    }
+
     private static int[] genVars(double[][] _X) {
         int[] vars = new int[_X[0].length];
         for (int i = 0; i < vars.length; i++)
