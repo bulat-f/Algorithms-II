@@ -7,7 +7,7 @@ public class SimpleSearch implements StringSearch {
         int haystackLength = haystack.length(),
             needleLength = needle.length();
 
-        for (int i = 0; i < haystackLength - needleLength; i++) {
+        for (int i = 0; i < haystackLength - needleLength + 1; i++) {
             ok = true;
             for (int j = 0; j < needleLength; j++) {
                 if (haystack.charAt(i + j) != needle.charAt(j)) {

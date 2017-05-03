@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
         String haystack = "Java is the best programming language";
-        String needle = "ramm";
+        String needle = "language";
 
         int position = SimpleSearch.search(haystack, needle);
 
