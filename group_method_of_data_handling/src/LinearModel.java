@@ -3,7 +3,7 @@ import Jama.Matrix;
 /**
  * Created by bulat on 4/26/17.
  */
-public class LinearModel {
+public class LinearModel implements Model {
     private Matrix X;
     private Matrix Y;
     private Matrix b;
@@ -37,6 +37,10 @@ public class LinearModel {
 
     public double R() {
         return 1 - S1() / S2();
+    }
+
+    public double DW() {
+        return 2;
     }
 
     private double S1() {

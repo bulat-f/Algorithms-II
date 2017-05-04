@@ -10,10 +10,10 @@ public class Generator {
         Y = new double[n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                X[i][j] = Math.random() * 100;
+                X[i][j] = Math.random() * 120;
                 Y[i] += X[i][j] * b[j + 1] + Math.random() * 2;
             }
-            Y[i] += b[0];
+            Y[i] += b[0] + Math.random() * 10;
         }
     }
 
