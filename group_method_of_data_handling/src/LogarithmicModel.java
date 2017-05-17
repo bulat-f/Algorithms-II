@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by bulat on 5/4/17.
  */
@@ -6,7 +8,7 @@ public class LogarithmicModel extends LinearModel  {
         super(LogarithmicModel.transform(_X), _Y);
     }
 
-    public LogarithmicModel(double[][] _X, double[] _Y, int[] vars) {
+    public LogarithmicModel(double[][] _X, double[] _Y, List<Integer> vars) {
         super(LogarithmicModel.transform(_X), _Y, vars);
     }
 
