@@ -21,17 +21,19 @@ public class LinearModel implements Model {
         }
         X = new Matrix(new_X);
         Y = new Matrix(_Y, _Y.length);
-
-        Matrix X_t = X.transpose();
-        b = X_t.times(X).inverse().times(X_t).times(Y);
     }
 
     public LinearModel(double[][] _X, double[] _Y) {
         this(_X, _Y, genVars(_X));
     }
 
-    public double[] getB() {
-        return b.getColumnPackedCopy();
+    public void perform() {
+        Matrix X_t = X.transpose();
+        b = X_t.times(X).inverse().times(X_t).times(Y);
+    }
+
+    public double[] getY() {
+        return Y_approx().getColumnPackedCopy();
     }
 
     public Matrix Y_approx() {
@@ -39,11 +41,15 @@ public class LinearModel implements Model {
     }
 
     public double R() {
-        return 1 - S1() / S2();
+        return 1 - Math.pow(S1() / S2(), 2);
     }
 
     public double DW() {
         return S3()/ Math.pow(S1(), 2);
+    }
+
+    public double C() {
+        return 4 * R() + (4 - Math.abs(DW() - 2));
     }
 
     private double S1() {

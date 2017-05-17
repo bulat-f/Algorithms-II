@@ -1,17 +1,17 @@
+import Jama.Matrix;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        double[] b = {100, 10, 5, 6, 8, 0, 12, 9};
-        int N = 7;
-        int M = 10;
-
+    public static double[][] group(Generator g, int N) {
         int K = (int) Math.pow(2, N);
 
-        Generator g = new Generator(b, M);
         List<Integer> vars = new ArrayList<Integer>();
-        Model model_1, model_2, model_3;
+        Model[] tmp_models = new Model[3];
+        ModelBuilder[] builders = new ModelBuilder[3];
+        double[] bests = {0, 0, 0};
+        Model[] models  = new Model[3];
 
         for(int i = 1; i < K; i++) {
             int k = i;
@@ -20,27 +20,60 @@ public class Main {
                 if (k % 2 == 1) vars.add(j);
                 k /= 2;
             }
-            System.out.println(i);
-            model_1 = new LinearModel(g.getX(), g.getY(), vars);
-            model_2 = new QuadraticModel(g.getX(), g.getY(), vars);
-            model_3 = new LogarithmicModel(g.getX(), g.getY(), vars);
 
-            System.out.println("Model 1 R = " + model_1.R());
-            System.out.println("Model 1 DW = " + model_1.DW());
-            System.out.println("Model 2 R = " + model_2.R());
-            System.out.println("Model 2 DW = " + model_2.DW());
-            System.out.println("Model 3 R = " + model_3.R());
-            System.out.println("Model 3 DW = " + model_3.DW());
+            tmp_models[0] = new LinearModel(g.getX(), g.getY(), vars);
+            tmp_models[1] = new QuadraticModel(g.getX(), g.getY(), vars);
+            tmp_models[2] = new LogarithmicModel(g.getX(), g.getY(), vars);
 
-            System.out.println(vars);
+            for (int j = 0; j < 3; j++)
+                builders[j] = new ModelBuilder(tmp_models[j]);
+
+            for (int j = 0; j < 3; j++) {
+                builders[j].run();
+            }
+
+            try {
+                for (int j = 0; j < 3; j++)
+                    builders[j].join();
+            } catch(InterruptedException e) {
+                return new double[1][1];
+            }
+
+            for (int j = 0; j < 3; j++) {
+                if (bests[j] < builders[j].getC()) {
+                    bests[j] = builders[j].getC();
+                    models[j] = tmp_models[j];
+
+                    System.out.println("Model #" + i + " (" + j + ") Better C = " + bests[j]);
+                }
+            }
+
         }
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Best model C = " + bests[i]);
+        }
+
+        double[][] result = {models[0].getY(), models[1].getY(), models[2].getY()};
+        Matrix Res = new Matrix(result);
+        Res = Res.transpose();
+
+        return Res.getArray();
     }
 
-    public static void printB(double[] b) {
-        for (int i = 0; i < b.length; i++) {
-            System.out.println("b[" + i + "] = " + b[i]);
+    public static void main(String[] args) {
+        double[] b = {100, 10, 5, 6, 8, 0, 12, 9};
+        int N = 7;
+        int M = 10;
+        Generator g = new Generator(b, M);
+
+        double[][] result = group(g, N);
+
+        Model[] models = {new LinearModel(result, g.getY()), new QuadraticModel(result, g.getY()), new LogarithmicModel(result, g.getY())};
+        for (int i = 0; i < 3; i++) {
+            models[i].perform();
+            System.out.println("Model " + i + " R = " + models[i].R());
         }
-        System.out.println();
     }
 }
 

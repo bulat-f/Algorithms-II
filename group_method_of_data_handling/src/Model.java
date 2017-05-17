@@ -2,7 +2,9 @@
  * Created by bulat on 5/4/17.
  */
 public interface Model {
-    double[] getB();
+    void perform();
+    double[] getY();
     double R();
     double DW();
+    double C();
 }
